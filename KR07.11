@@ -1,0 +1,34 @@
+#include <iostream>
+#include <algorithm> // для std::min
+
+int* extend(const int* a, size_t k, size_t d, int filler) {
+    int* new_array = new int[d]; // выделяем память под новый массив
+    
+    // Копируем элементы из исходного массива
+    for (size_t i = 0; i < std::min(k, d); i++) {
+        new_array[i] = a[i];
+    }
+    
+    // Заполняем оставшиеся элементы filler-ом
+    for (size_t i = std::min(k, d); i < d; i++) {
+        new_array[i] = filler;
+    }
+    
+    return new_array;
+}
+
+int main() {
+    int array[5] = {1, 2, 3, 4, 5};
+    
+    // Вызываем функцию extend
+    // Параметры: исходный массив, размер исходного (5), новый размер (3), заполнитель (0)
+    int* new_array = extend(array, 5, 3, 0);
+    
+    // Выводим результат
+    for (size_t i = 0; i < 3; i++) {
+        std::cout << new_array[i] << " ";
+    }
+    
+    delete[] new_array; // освобождаем память
+    return 0;
+}
